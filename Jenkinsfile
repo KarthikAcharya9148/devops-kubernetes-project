@@ -10,21 +10,22 @@ pipeline {
         }
 
         stage('Install Dependencies') {
-            steps {
-                sh '''
-                    python3 -m pip install --upgrade pip
-                    pip install -r requirements.txt
-                '''
-            }
-        }
+    steps {
+        sh '''
+            python3 -m venv .venv
+            .venv/bin/python -m pip install --upgrade pip
+            .venv/bin/python -m pip install -r requirements.txt
+        '''
+    }
+}
 
         stage('Run Tests') {
-            steps {
-                sh '''
-                    pytest
-                '''
-            }
-        }
+    steps {
+        sh '''
+            .venv/bin/python -m pytest
+        '''
+    }
+}
 
         stage('Docker Build') {
             steps {
