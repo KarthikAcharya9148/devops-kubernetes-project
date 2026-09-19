@@ -34,5 +34,13 @@ pipeline {
                 '''
             }
         }
+
+stage('Security Scan') {
+            steps {
+                sh '''
+                    trivy image devops-demo:1.0
+                '''
+            }
+        }
     }
 }
